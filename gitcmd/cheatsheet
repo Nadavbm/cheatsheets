@@ -1,0 +1,69 @@
+Basich work with repositories:
+==============================
+
+git init										# Initialize repository, create .git dir inside your working directory
+git remote add <url>							# Adding the remote repository
+
+git add <filename>								# Adding file name
+git add .										# Adding all files in directory
+git commit -m "Add comment"
+git push origin master							# git push <defaultName> <branchName>
+
+Before you make mistakes...
+===========================
+
+git pull										# Pull this every day before working so you dont piss off other people...
+git branch <branchName>							# Create a new branch
+git checkout <branchName>						# Move HEAD to the branchName - git log will show different thing than other branches...
+git checkout <commitHash>						# HEAD point to specific commit, create a branch from here usually
+
+What's going on in the repository
+=================================
+
+git status										# What am i doing
+
+git log											# What happened...
+git log --online -decorate --graph --all
+
+git remote -v									# Where am i
+git branch -a									# Which tribe I belong..
+
+git show --format="%nHash: %h%nCommit Message: %s%nParent Hashes: %P" --stat-name-width=50 <hash>
+
+I screw it up for all let's try to fix it...
+============================================
+
+git stash										# The pull master again will actually pull the repository to local repo
+git stash list									# List stash changes we made before
+git stash apply <stashName>						# Apply the stash at the relevant change and overwrite the current repository
+
+git revert HEAD									# Get rid of the most recent commit
+git revert HEAD~~~								# Every tilda revert to one commit before the most recent.. means this one is 4 recent commits
+git reset --hard								# Resets the reverts or other stuff to last commit
+
+git rm --cache <some addition..>				# After git add you can stop screwing from here...
+
+git reset --soft								# Don't delete the commits like hard. You will kill it with hard. Be careful!
+git reset --mixed								# You didn't kill but you fucked someone which probably other person will seach to kill you or something like that... ends in murder.. be carful... I went to sleep here fuck it..
+git reset --hard HEAD							# Bring back changes in local repository to the last commit
+
+Other things which you don't really know if you need...
+=======================================================
+
+git tag											# Show tags - tags usually added to commit when you finish you things...
+git tag -l "v1.0"								# When you actually develop something to production and want to tag the commit
+git checkout <working> && git merge <finished>	# Checkout to the branch that you are working on and merge the branch you finished working on to it.
+git branch -d <finished>						# Delete the branch you just merge, the one you finished working on and already merge					
+
+Concepts:
+=========
+
+HEAD is the pointer of the repository (It points to where we at and where the repository)
+
+3 Trees - Repository, staging, working direcotry
+4 states - Each one of the trees can be equal or different from each other (In 4 states)
+
+Repository = Stage = WorkingDir
+Repository = Stage != WorkingDir
+Repository != Stage = WorkingDir
+Repository != Stage != WorkingDir

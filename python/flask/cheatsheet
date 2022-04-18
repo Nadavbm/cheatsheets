@@ -1,0 +1,108 @@
+"""Flask cheatsheet
+================"""
+
+from flask import Flask
+
+"""Templates and routing
+====================="""
+from flask import Flask, url_for, render_template, redirect, request, flash
+
+app = Flask(__name__, static_url_path='', static_folder="static", template_folder="templates")
+
+app/routes.py /app/views.py
+
+@app.route('/')
+@app.route('/home', methods=['GET'])
+def home():
+	variable = someClassOrFunctionReturn()
+	return render template('index.html', variable=variable)
+
+@app.route('/page/<string:variable>', methods=['GET, 'POST'])
+def login():
+	form = SomeFormClass()
+	if request.method == 'POST':
+		name = SomeModelsClass(name=form.name.data)
+		try:
+			print(name)
+			redirect(url_for('func')
+		expect:
+			print('Something wrong..')
+	render_template('login.html', form=form)
+
+"""SQLAlchemy
+=========="""
+from flask_sqlalchemy import SQLAlchemy
+
+class User(db.Model):
+	__tablename__ = "User"
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(50), nullable=False)
+	email = db.Column(db.String(80), uniqueu=False)
+
+	def __init__(self, name, email):
+		self.name = name
+		self.email = email
+
+	def __repr__(self):
+		return f"User('{self.id}', '{self.name}', '{self.email}')
+
+db.init_app(app)
+db.drop_all()
+db.create_all()
+db.session.commit()
+
+user = User(id=12, name='SomeString', email=form.email.data)
+db.session.add(user)
+db.session.commit()
+
+
+"""WTForms
+======="""
+
+from wtforms import Form, StringField, PasswordField, validators, SubmitField, SelectField, TextField, BooleanField, TextAreaField
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+from flask_wtf import FlaskForm
+
+# Pattern:
+[VARIABLE] = [FieldType]('[LABEL]', [
+        validators.[VALIDATOR TYPE](message=('[VALIDATOR ERROR'))])
+
+class SomeForm(Form):
+	name = StringField('Name', [validators.DataRequired(message=('Enter your name')), filters = [lambda x: x or None])
+	email = StringField('Email', [Length(min=8), Email(message=('Enter valid email address'), DataRequired()])
+	password = PasswordField('Password', validators=[DataRequired(message='Enter a password'), Length(min=8]) 
+	confirm = PasswordField('Confirm Password', validators=[EqualTo(password, message='Passwords not match')])
+	country = StringField('Country', filters = [lambda x: x or None])
+
+	def validateEmail(self, email):
+		user = User.query.filter_by(email=email.data).first()
+		if user is not None:
+			raise ValidationError('This email already being used')
+
+#Jinja representation
+
+<form method=post>
+	{{ form.name }} {{ form.name.label }}
+	{% if form.name.erros %}
+		<ul>
+			{% for error in form.name.errors %}
+			<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	{{ form.email }} {{ form.email.label }}
+	{% if form.email.errors %}
+		<ul>
+			{% for error in form.name.erros %}
+			<li>{{ error }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	<input type="submit" value="submit">
+</form>
+
+{% for message in get_flashed_messages() %}
+{{ message }}
+{% endfor %}
+
+

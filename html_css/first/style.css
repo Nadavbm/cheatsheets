@@ -1,0 +1,59 @@
+body {
+	font-size: 20px;
+	padding: 0;
+	margin: 0;
+	background-color: #FFFFFF;
+	font-family: 'Amatic SC', cursive;
+}
+
+.container {
+	width: 90%;	
+	margin: auto;
+	overflow: hidden;
+}
+
+header {
+	font: 20px, 'Amatic SC', cursive;
+	background: #EEEEEE;
+	color: #000000;
+	padding-top: 20px;
+	min-height: 40px;
+}
+
+header a {
+	padding: 0;
+	margin: 0;
+}
+
+header ul {
+	font: 15px 'Amatic SC', cursive;
+	padding: 0;
+	margin: 0;
+}
+
+header li {
+	float: left;
+	display: inline;
+	padding: 2px 20px 2px 20px;
+}
+
+header nav {
+	float: right;
+	margin-top: 10px;
+	font-size: 15px;
+}
+
+header #logo {
+	float: left;
+}
+
+header #logo h5 {
+	margin: 0;
+}
+
+#showcase {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: auto;
+	height: auto;
+}
